@@ -1,0 +1,15 @@
+lista = ['Bmw', 'Mecedes', 'Audi', 'Ram']
+lista.append('porsche')
+
+
+print (f'conteudo da lista{lista}')
+
+print(f'primeiro item da lista: {lista[0]}')
+print(f'segundo item da lista: {lista[1]}')
+print(f'terceiro item da lista: {lista[2]}')
+print(f'quarto item da lista: {lista[3]}')
+
+
+for carros in lista:
+    print('lista de carro', lista)
+
