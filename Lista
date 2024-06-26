@@ -1,5 +1,6 @@
 lista = ['Bmw', 'Mecedes', 'Audi', 'Ram']
 lista.append('porsche')
+lista.remove('Mecedes')
 
 
 print (f'conteudo da lista{lista}')
@@ -12,4 +13,3 @@ print(f'quarto item da lista: {lista[3]}')
 
 for carros in lista:
     print('lista de carro', lista)
-
