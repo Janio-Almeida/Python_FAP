@@ -1,6 +1,7 @@
 lista = ['Bmw', 'Mecedes', 'Audi', 'Ram']
 lista.append('porsche')
 lista.remove('Mecedes')
+lista.insert(1,'SW4')
 
 
 print (f'conteudo da lista{lista}')
