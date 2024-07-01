@@ -1,0 +1,11 @@
+dicionario ={'chave1':1, 'chave2':2, 'chave3':3}
+
+print(dicionario)
+
+dicionario['chave4'] = 4
+
+print(dicionario['chave4'])
+print(dicionario)
+
+for lista in dicionario:
+    print(lista)
