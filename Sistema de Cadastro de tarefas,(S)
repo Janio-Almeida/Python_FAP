@@ -1,0 +1,83 @@
+# Lista para armazenar as tarefas (cada tarefa será um dicionário)
+tarefas = []
+
+# Função para exibir o menu
+def exibir_menu():
+    print("\n=== Menu ===")
+    print("1. Cadastrar uma tarefa")
+    print("2. Alterar uma tarefa")
+    print("3. Excluir uma tarefa")
+    print("4. Listar tarefas")
+    print("5. Sair do sistema")
+
+# Função para cadastrar uma nova tarefa
+def cadastrar_tarefa():
+    nome = input("Digite o nome da tarefa: ")
+    descricao = input("Digite a descrição da tarefa: ")
+    tarefa = {'nome': nome, 'descricao': descricao}
+    tarefas.append(tarefa)
+    print("Tarefa cadastrada com sucesso!")
+
+# Função para alterar uma tarefa existente
+def alterar_tarefa():
+    if not tarefas:
+        print("Não há tarefas cadastradas.")
+        return
+    
+    print("\nTarefas disponíveis:")
+    for i, tarefa in enumerate(tarefas):
+        print(f"{i+1}. Nome: {tarefa['nome']}, Descrição: {tarefa['descricao']}")
+    
+    indice = int(input("Digite o número da tarefa que deseja alterar: "))
+    if 1 <= indice <= len(tarefas):
+        novo_nome = input("Digite o novo nome da tarefa: ")
+        nova_descricao = input("Digite a nova descrição da tarefa: ")
+        tarefas[indice-1] = {'nome': novo_nome, 'descricao': nova_descricao}
+        print("Tarefa alterada com sucesso!")
+    else:
+        print("Número de tarefa inválido.")
+
+# Função para excluir uma tarefa
+def excluir_tarefa():
+    if not tarefas:
+        print("Não há tarefas cadastradas.")
+        return
+    
+    print("\nTarefas disponíveis:")
+    for i, tarefa in enumerate(tarefas):
+        print(f"{i+1}. Nome: {tarefa['nome']}, Descrição: {tarefa['descricao']}")
+    
+    indice = int(input("Digite o número da tarefa que deseja excluir: "))
+    if 1 <= indice <= len(tarefas):
+        tarefa_removida = tarefas.pop(indice-1)
+        print(f"Tarefa '{tarefa_removida['nome']}' removida com sucesso!")
+    else:
+        print("Número de tarefa inválido.")
+
+# Função para listar todas as tarefas cadastradas
+def listar_tarefas():
+    if not tarefas:
+        print("Não há tarefas cadastradas.")
+    else:
+        print("\n=== Lista de Tarefas ===")
+        for i, tarefa in enumerate(tarefas):
+            print(f"{i+1}. Nome: {tarefa['nome']}, Descrição: {tarefa['descricao']}")
+
+# Execução do programa
+while True:
+    exibir_menu()
+    opcao = input("Digite o número da opção desejada: ")
+
+    if opcao == '1':
+        cadastrar_tarefa()
+    elif opcao == '2':
+        alterar_tarefa()
+    elif opcao == '3':
+        excluir_tarefa()
+    elif opcao == '4':
+        listar_tarefas()
+    elif opcao == '5':
+        print("Saindo do sistema...")
+        break
+    else:
+        print("Opção inválida. Digite um número de 1 a 5.")
