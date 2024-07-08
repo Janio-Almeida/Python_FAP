@@ -1,0 +1,18 @@
+def soma_numero(num1, num2):
+    return num1 + num2
+
+while True:
+    num1 = float(input('digite o primeio numero'))
+    num2 = float(input('digite o segundo numero'))
+
+    resultado = soma_numero(num1, num2)
+
+    print(f'o primeiro numero foi{num1} e o segundo {num2}')
+    print(f' o resultado foi {resultado}')
+
+    pergunta = input('quer continuar a soma (s) ou (n)')
+
+    if pergunta != ('s'):
+        break
+print('programa finalizado com sucesso')
+
