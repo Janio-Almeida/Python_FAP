@@ -1,0 +1,18 @@
+class Carro:
+    def __init__(self, marca, modelo, cor, ano):
+        self.marca = marca
+        self.modelo = modelo
+        self.cor = cor
+        self.ano = ano
+    
+    def ligar_motor(self):
+        print('Motor Ligado')
+    
+    def obter_informacao(self):
+        return f"Marca: {self.marca} - Modelo: {self.modelo} - Cor: {self.cor} - Ano: {self.ano}"
+
+meu_carro = Carro('Ram', '1500', 'preto', 2024)
+
+meu_carro.ligar_motor()
+
+print(meu_carro.obter_informacao())
