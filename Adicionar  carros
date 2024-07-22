@@ -1,0 +1,40 @@
+carros = []
+
+# Função para exibir o menu
+def exibir_menu():
+    print("\n=== Menu ===")
+    print("1. Cadastrar uma carro")
+    print("2. Listar de carros")
+    print("3. Sair do sistema")
+# marca,modelo, ano e cor.
+
+def cadastrar_carros():
+    marca = input("Digite a marca do seu carro: ")
+    modelo = input("Digite o modelo do carro: ")
+    ano = input("Digite o ano do carro: ")
+    cor  = input("Digite a cor do carro: ")
+    carro = {'Marca': marca, 'Modelo': modelo, 'Ano': ano, 'Cor': cor}
+    carros.append(carro)
+    print("carro  cadastrada com sucesso!")
+
+   
+def listar_carros():
+    if not carros:
+        print("Não há carros cadastradas.")
+    else:
+        print("\n=== Lista de carros ===")
+        for i, carro in enumerate(carros):
+            print(f"{i+1}. Marca: {carro['Marca']}, Modelo: {carro['Modelo']}, ano {carro['Ano']}, Cor: {carro['Cor']}")  
+while True:
+    exibir_menu()
+    opcao = input("Digite o número da opção desejada: ")
+
+    if opcao == '1':
+        cadastrar_carros()
+    elif opcao == '2':
+        listar_carros()
+    elif opcao == '3':
+        print("Saindo do sistema...")
+        break
+    else:
+        print("Opção inválida. Digite um número de 1 a 3.")
