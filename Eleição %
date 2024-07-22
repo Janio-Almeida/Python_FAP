@@ -1,0 +1,44 @@
+# Definindo os candidatos e seus respectivos códigos
+candidatos = {
+    1: "Jonas",
+    2: "Josias",
+    3: "Marlene",
+    4: "Sandra"
+}
+
+# Variáveis para armazenar os totais de votos
+votos_candidatos = {1: 0, 2: 0, 3: 0, 4: 0}
+votos_nulos = 0
+votos_em_branco = 0
+total_votos = 0
+
+# Loop para coletar os votos
+while True:
+    voto = int(input("Digite o código do seu voto (ou 0 para encerrar): "))
+    
+    if voto == 0:
+        break
+    elif voto in candidatos:
+        votos_candidatos[voto] += 1
+    elif voto == 5:
+        votos_nulos += 1
+    elif voto == 6:
+        votos_em_branco += 1
+    else:
+        print("Código inválido. Voto não contabilizado.")
+
+    total_votos += 1
+
+# Calculando as percentagens
+percentual_nulos = (votos_nulos / total_votos) * 100 if total_votos > 0 else 0
+percentual_branco = (votos_em_branco / total_votos) * 100 if total_votos > 0 else 0
+
+# Exibindo os resultados
+print("\nResultado da Eleição:")
+for codigo, nome in candidatos.items():
+    print(f"{nome}: {votos_candidatos[codigo]} votos")
+
+print(f"Votos nulos: {votos_nulos}")
+print(f"Votos em branco: {votos_em_branco}")
+print(f"Percentual de votos nulos sobre o total de votos: {percentual_nulos:.2f}%")
+print(f"Percentual de votos em branco sobre o total de votos: {percentual_branco:.2f}%")
