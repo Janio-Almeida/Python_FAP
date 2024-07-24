@@ -1,0 +1,125 @@
+class Treinador:
+    def __init__(self, nome, idade, especializacao=None):
+        self.nome = nome
+        self.idade = idade
+        self.especializacao = especializacao
+    
+    def __str__(self):
+        return f"Treinador: {self.nome}, Idade: {self.idade}, Especialização: {self.especializacao}"
+
+class Atleta:
+    def __init__(self, nome, idade, modalidade, regime_treino):
+        self.nome = nome
+        self.idade = idade
+        self.modalidade = modalidade
+        self.regime_treino = regime_treino
+    
+    def __str__(self):
+        return f"Atleta: {self.nome}, Idade: {self.idade}, Modalidade: {self.modalidade}, Regime de Treino: {self.regime_treino}"
+
+class SistemaTreinadorAtletas:
+    def __init__(self):
+        self.treinadores = {}
+        self.atletas = {}
+        self.next_treinador_id = 1
+        self.next_atleta_id = 1
+    
+    
+    def cadastrar_treinador(self, nome, idade, especializacao=None):
+        treinador = Treinador(nome, idade, especializacao)
+        self.treinadores[self.next_treinador_id] = treinador
+        self.next_treinador_id += 1
+        return self.next_treinador_id - 1  # Retorna o ID do treinador criado
+    
+    def listar_treinadores(self):
+        for treinador_id, treinador in self.treinadores.items():
+            print(f"ID: {treinador_id}, {treinador}")
+    
+    def buscar_treinador_por_id(self, treinador_id):
+        return self.treinadores.get(treinador_id, None)
+    
+    def atualizar_treinador(self, treinador_id, nome=None, idade=None, especializacao=None):
+        if treinador_id in self.treinadores:
+            treinador = self.treinadores[treinador_id]
+            if nome:
+                treinador.nome = nome
+            if idade:
+                treinador.idade = idade
+            if especializacao:
+                treinador.especializacao = especializacao
+            return True
+        return False
+    
+    def excluir_treinador(self, treinador_id):
+        if treinador_id in self.treinadores:
+            del self.treinadores[treinador_id]
+            return True
+        return False
+    
+    
+    def cadastrar_atleta(self, nome, idade, modalidade, regime_treino):
+        atleta = Atleta(nome, idade, modalidade, regime_treino)
+        self.atletas[self.next_atleta_id] = atleta
+        self.next_atleta_id += 1
+        return self.next_atleta_id - 1  # Retorna o ID do atleta criado
+    
+    def listar_atletas(self):
+        for atleta_id, atleta in self.atletas.items():
+            print(f"ID: {atleta_id}, {atleta}")
+    
+    def buscar_atleta_por_id(self, atleta_id):
+        return self.atletas.get(atleta_id, None)
+    
+    def atualizar_atleta(self, atleta_id, nome=None, idade=None, modalidade=None, regime_treino=None):
+        if atleta_id in self.atletas:
+            atleta = self.atletas[atleta_id]
+            if nome:
+                atleta.nome = nome
+            if idade:
+                atleta.idade = idade
+            if modalidade:
+                atleta.modalidade = modalidade
+            if regime_treino:
+                atleta.regime_treino = regime_treino
+            return True
+        return False
+    
+    def excluir_atleta(self, atleta_id):
+        if atleta_id in self.atletas:
+            del self.atletas[atleta_id]
+            return True
+        return False
+
+# Exemplo de uso:
+sistema = SistemaTreinadorAtletas()
+
+# Cadastrar treinadores
+id_treinador1 = sistema.cadastrar_treinador("Carlos Silva", 40, "Futebol")
+id_treinador2 = sistema.cadastrar_treinador("Ana Souza", 35, "Natação")
+
+# Cadastrar atletas
+id_atleta1 = sistema.cadastrar_atleta("João Santos", 25, "Futebol", "Segunda: Treino técnico, Quarta: Treino físico")
+id_atleta2 = sistema.cadastrar_atleta("Maria Oliveira", 28, "Natação", "Terça: Treino de resistência, Quinta: Treino técnico")
+
+# Listar treinadores e atletas
+print("Treinadores:")
+sistema.listar_treinadores()
+
+print("\nAtletas:")
+sistema.listar_atletas()
+
+# Atualizar treinador e atleta
+sistema.atualizar_treinador(id_treinador1, nome="Carlos Silva Jr.")
+sistema.atualizar_atleta(id_atleta2, regime_treino="Terça e Quinta: Treino de força")
+
+print("\nTreinador atualizado:")
+print(sistema.buscar_treinador_por_id(id_treinador1))
+
+print("\nAtleta atualizado:")
+print(sistema.buscar_atleta_por_id(id_atleta2))
+
+# Excluir atleta
+sistema.excluir_atleta(id_atleta1)
+
+print("\nAtletas após exclusão:")
+sistema.listar_atletas()
