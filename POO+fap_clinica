@@ -1,0 +1,69 @@
+class Medico:
+    def __init__(self, crm, nome, especialidade):
+        self.crm = crm
+        self.nome = nome
+        self.especialidade = especialidade
+    def __str__(self):
+        return f'CRM: {self.crm}, Nome: {self.nome}, Especialidade: {self.especialidade}'
+
+class Paciente:
+    def __init__(self, nome, data_nascimento, cpf):
+        self.nome = nome
+        self.data_nascimento = data_nascimento
+        self.cpf = cpf
+    
+    def __str__(self):
+        return f'Nome: {self.nome}, Data de nascimento: {self.data_nascimento}, CPF: {self.cpf}'
+
+
+class Consulta:
+    def __init__(self, medico, paciente, data, hora):
+        self.medico = medico
+        self.paciente = paciente
+        self.data = data
+        self.hora = hora
+    
+    def __str__(self):
+        return (f'Data: {self.data}, Hora: {self.hora} O Médico: {self.medico.nome},'
+               f'Paciente: {self.paciente.nome}')
+        
+        
+class Clinica:
+    def __init__(self, nome):
+        self.nome = nome
+        self.medicos = []
+        self.pacientes = []
+        self.consultas = []
+    
+    def adicionar_medico(self, crm, nome, especialidade):
+        medico = Medico(crm, nome, especialidade)
+        self.medicos.append(medico)
+        
+    def adicionar_paciente(self, nome, data_nascimento, cpf):
+        paciente = Paciente(nome, data_nascimento, cpf)
+        self.pacientes.append(paciente)
+
+    def agendar_consulta(self, crm_medico, cpf_paciente, data, hora):
+        medico = next((m for m in self.medicos if m.crm == crm_medico), None)
+        paciente = next((p for p in self.pacientes if p.cpf == cpf_paciente), None)
+        if medico and paciente:
+            consulta = Consulta(medico, paciente, data, hora)
+            self.consultas.append(consulta)
+        else:
+            print("Médico ou Paciente não encontrado.")
+    
+    def __str__(self):
+        return (f"Nome da Clínica: {self.nome}\n"
+                f"Médicos:\n" + "\n".join(str(m) for m in self.medicos) + "\n"
+                f"Pacientes:\n" + "\n".join(str(p) for p in self.pacientes) + "\n"
+                f"Consultas:\n" + "\n".join(str(c) for c in self.consultas))
+
+clinica = Clinica('Clínica Saúde Total')
+clinica.adicionar_medico(1020, 'Luiz', 'Otorrino')
+clinica.adicionar_medico(1030, 'Maria', 'Cardiologista')
+clinica.adicionar_paciente('João da Silva', '1990-05-15', '123.456.789-00')
+clinica.adicionar_paciente('Ana Oliveira', '1985-03-22', '987.654.321-00')
+clinica.agendar_consulta(1020, '123.456.789-00', '2024-07-27', '10:00')
+clinica.agendar_consulta(1030, '987.654.321-00', '2024-07-28', '11:00')
+
+print(clinica)
