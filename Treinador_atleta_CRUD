@@ -28,9 +28,10 @@ class SistemaTreinadorAtletas:
     
     def cadastrar_treinador(self, nome, idade, especializacao=None):
         treinador = Treinador(nome, idade, especializacao)
-        self.treinadores[self.next_treinador_id] = treinador
+        treinador_id = self.next_treinador_id
+        self.treinadores[treinador_id] = treinador
         self.next_treinador_id += 1
-        return self.next_treinador_id - 1
+        return treinador_id
     
     def listar_treinadores(self):
         for treinador_id, treinador in self.treinadores.items():
@@ -56,9 +57,10 @@ class SistemaTreinadorAtletas:
     
     def cadastrar_atleta(self, nome, idade, modalidade, regime_treino):
         atleta = Atleta(nome, idade, modalidade, regime_treino)
-        self.atletas[self.next_atleta_id] = atleta
+        atleta_id = self.next_atleta_id
+        self.atletas[atleta_id] = atleta
         self.next_atleta_id += 1
-        return self.next_atleta_id - 1
+        return atleta_id
     
     def listar_atletas(self):
         for atleta_id, atleta in self.atletas.items():
@@ -83,6 +85,7 @@ class SistemaTreinadorAtletas:
     
     def excluir_atleta(self, atleta_id):
         return self.atletas.pop(atleta_id, None) is not None
+
 
 
 def exibir_menu():
