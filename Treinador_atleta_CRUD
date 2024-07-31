@@ -1,92 +1,95 @@
-class Treinador:
-    def __init__(self, nome, idade, especializacao=None):
-        self.nome = nome
-        self.idade = idade
-        self.especializacao = especializacao
-    
-    def __str__(self):
-        return f"Treinador: {self.nome}, Idade: {self.idade}, Especialização: {self.especializacao}"
+# Estruturas de dados para armazenar treinadores e atletas
+treinadores = {}
+atletas = {}
+next_treinador_id = 1
+next_atleta_id = 1
 
+def cadastrar_treinador(nome, idade, especializacao=None):
+    global next_treinador_id
+    treinador_id = next_treinador_id
+    treinadores[treinador_id] = {
+        'nome': nome,
+        'idade': idade,
+        'especializacao': especializacao
+    }
+    next_treinador_id += 1
+    return treinador_id
 
-class Atleta:
-    def __init__(self, nome, idade, modalidade, regime_treino):
-        self.nome = nome
-        self.idade = idade
-        self.modalidade = modalidade
-        self.regime_treino = regime_treino
-    
-    def __str__(self):
-        return f"Atleta: {self.nome}, Idade: {self.idade}, Modalidade: {self.modalidade}, Regime de Treino: {self.regime_treino}"
+def listar_treinadores():
+    for treinador_id, treinador in treinadores.items():
+        print(f"ID: {treinador_id}, Treinador: {treinador['nome']}, Idade: {treinador['idade']}, Especialização: {treinador['especializacao']}")
 
+def buscar_treinador_por_id(treinador_id):
+    return treinadores.get(treinador_id, None)
 
-class SistemaTreinadorAtletas:
-    def __init__(self):
-        self.treinadores = {}
-        self.atletas = {}
-        self.next_treinador_id = 1
-        self.next_atleta_id = 1
-    
-    def cadastrar_treinador(self, nome, idade, especializacao=None):
-        treinador = Treinador(nome, idade, especializacao)
-        treinador_id = self.next_treinador_id
-        self.treinadores[treinador_id] = treinador
-        self.next_treinador_id += 1
-        return treinador_id
-    
-    def listar_treinadores(self):
-        for treinador_id, treinador in self.treinadores.items():
-            print(f"ID: {treinador_id}, {treinador}")
-    
-    def buscar_treinador_por_id(self, treinador_id):
-        return self.treinadores.get(treinador_id, None)
-    
-    def atualizar_treinador(self, treinador_id, nome=None, idade=None, especializacao=None):
-        treinador = self.treinadores.get(treinador_id)
-        if treinador:
-            if nome:
-                treinador.nome = nome
-            if idade is not None:
-                treinador.idade = idade
-            if especializacao:
-                treinador.especializacao = especializacao
-            return True
-        return False
-    
-    def excluir_treinador(self, treinador_id):
-        return self.treinadores.pop(treinador_id, None) is not None
-    
-    def cadastrar_atleta(self, nome, idade, modalidade, regime_treino):
-        atleta = Atleta(nome, idade, modalidade, regime_treino)
-        atleta_id = self.next_atleta_id
-        self.atletas[atleta_id] = atleta
-        self.next_atleta_id += 1
-        return atleta_id
-    
-    def listar_atletas(self):
-        for atleta_id, atleta in self.atletas.items():
-            print(f"ID: {atleta_id}, {atleta}")
-    
-    def buscar_atleta_por_id(self, atleta_id):
-        return self.atletas.get(atleta_id, None)
-    
-    def atualizar_atleta(self, atleta_id, nome=None, idade=None, modalidade=None, regime_treino=None):
-        atleta = self.atletas.get(atleta_id)
-        if atleta:
-            if nome:
-                atleta.nome = nome
-            if idade is not None:
-                atleta.idade = idade
-            if modalidade:
-                atleta.modalidade = modalidade
-            if regime_treino:
-                atleta.regime_treino = regime_treino
-            return True
-        return False
-    
-    def excluir_atleta(self, atleta_id):
-        return self.atletas.pop(atleta_id, None) is not None
+def atualizar_treinador(treinador_id, nome=None, idade=None, especializacao=None):
+    treinador = treinadores.get(treinador_id)
+    if treinador:
+        if nome:
+            treinador['nome'] = nome
+        if idade is not None:
+            treinador['idade'] = idade
+        if especializacao:
+            treinador['especializacao'] = especializacao
+        return True
+    return False
 
+def excluir_treinador(treinador_id):
+    return treinadores.pop(treinador_id, None) is not None
 
+def cadastrar_atleta(nome, idade, modalidade, regime_treino, id_treinador):
+    if id_treinador not in treinadores:
+        print("ID do treinador não encontrado. Atleta não cadastrado.")
+        return None
+    global next_atleta_id
+    atleta_id = next_atleta_id
+    atletas[atleta_id] = {
+        'nome': nome,
+        'idade': idade,
+        'modalidade': modalidade,
+        'regime_treino': regime_treino,
+        'id_treinador': id_treinador
+    }
+    next_atleta_id += 1
+    return atleta_id
+
+def listar_atletas():
+    for atleta_id, atleta in atletas.items():
+        print(f"ID: {atleta_id}, Atleta: {atleta['nome']}, Idade: {atleta['idade']}, Modalidade: {atleta['modalidade']}, Regime de Treino: {atleta['regime_treino']}, ID Treinador: {atleta['id_treinador']}")
+
+def buscar_atleta_por_id(atleta_id):
+    return atletas.get(atleta_id, None)
+
+def atualizar_atleta(atleta_id, nome=None, idade=None, modalidade=None, regime_treino=None, id_treinador=None):
+    atleta = atletas.get(atleta_id)
+    if atleta:
+        if nome:
+            atleta['nome'] = nome
+        if idade is not None:
+            atleta['idade'] = idade
+        if modalidade:
+            atleta['modalidade'] = modalidade
+        if regime_treino:
+            atleta['regime_treino'] = regime_treino
+        if id_treinador is not None:
+            if id_treinador not in treinadores:
+                print("ID do treinador não encontrado. Alteração não realizada.")
+                return False
+            atleta['id_treinador'] = id_treinador
+        return True
+    return False
+
+def excluir_atleta(atleta_id):
+    return atletas.pop(atleta_id, None) is not None
+
+def listar_atletas_por_treinador(id_treinador):
+    if id_treinador not in treinadores:
+        print("ID do treinador não encontrado.")
+        return
+    print(f"Atletas treinados por {treinadores[id_treinador]['nome']}:")
+    for atleta in atletas.values():
+        if atleta['id_treinador'] == id_treinador:
+            print(f"Atleta: {atleta['nome']}, Idade: {atleta['idade']}, Modalidade: {atleta['modalidade']}, Regime de Treino: {atleta['regime_treino']}")
 
 def exibir_menu():
     print("\n=== Menu ===")
@@ -98,11 +101,15 @@ def exibir_menu():
     print("6. Atualizar um atleta")
     print("7. Excluir um atleta")
     print("8. Listar atletas")
-    print("9. Sair do sistema")
-
+    print("9. Listar atletas por treinador")
+    print("10. Sair do sistema")
 
 def main():
-    sistema = SistemaTreinadorAtletas()
+    global treinadores, atletas, next_treinador_id, next_atleta_id
+    treinadores = {}
+    atletas = {}
+    next_treinador_id = 1
+    next_atleta_id = 1
     
     while True:
         exibir_menu()
@@ -112,7 +119,7 @@ def main():
             nome = input("Nome do treinador: ")
             idade = int(input("Idade do treinador: "))
             especializacao = input("Especialização (opcional): ") or None
-            id_treinador = sistema.cadastrar_treinador(nome, idade, especializacao)
+            id_treinador = cadastrar_treinador(nome, idade, especializacao)
             print(f"Treinador cadastrado com ID: {id_treinador}")
         
         elif opcao == '2':
@@ -121,28 +128,30 @@ def main():
             idade = input("Nova idade (opcional, deixe em branco para não alterar): ")
             idade = int(idade) if idade else None
             especializacao = input("Nova especialização (opcional): ") or None
-            if sistema.atualizar_treinador(id_treinador, nome, idade, especializacao):
+            if atualizar_treinador(id_treinador, nome, idade, especializacao):
                 print("Treinador atualizado com sucesso.")
             else:
                 print("Treinador não encontrado.")
         
         elif opcao == '3':
             id_treinador = int(input("ID do treinador a ser excluído: "))
-            if sistema.excluir_treinador(id_treinador):
+            if excluir_treinador(id_treinador):
                 print("Treinador excluído com sucesso.")
             else:
                 print("Treinador não encontrado.")
         
         elif opcao == '4':
-            sistema.listar_treinadores()
+            listar_treinadores()
         
         elif opcao == '5':
             nome = input("Nome do atleta: ")
             idade = int(input("Idade do atleta: "))
             modalidade = input("Modalidade: ")
             regime_treino = input("Regime de treino: ")
-            id_atleta = sistema.cadastrar_atleta(nome, idade, modalidade, regime_treino)
-            print(f"Atleta cadastrado com ID: {id_atleta}")
+            id_treinador = int(input("ID do treinador: "))
+            id_atleta = cadastrar_atleta(nome, idade, modalidade, regime_treino, id_treinador)
+            if id_atleta:
+                print(f"Atleta cadastrado com ID: {id_atleta}")
         
         elif opcao == '6':
             id_atleta = int(input("ID do atleta a ser atualizado: "))
@@ -151,22 +160,28 @@ def main():
             idade = int(idade) if idade else None
             modalidade = input("Nova modalidade (opcional): ") or None
             regime_treino = input("Novo regime de treino (opcional): ") or None
-            if sistema.atualizar_atleta(id_atleta, nome, idade, modalidade, regime_treino):
+            id_treinador = input("Novo ID do treinador (opcional): ")
+            id_treinador = int(id_treinador) if id_treinador else None
+            if atualizar_atleta(id_atleta, nome, idade, modalidade, regime_treino, id_treinador):
                 print("Atleta atualizado com sucesso.")
             else:
                 print("Atleta não encontrado.")
         
         elif opcao == '7':
             id_atleta = int(input("ID do atleta a ser excluído: "))
-            if sistema.excluir_atleta(id_atleta):
+            if excluir_atleta(id_atleta):
                 print("Atleta excluído com sucesso.")
             else:
                 print("Atleta não encontrado.")
         
         elif opcao == '8':
-            sistema.listar_atletas()
+            listar_atletas()
         
         elif opcao == '9':
+            id_treinador = int(input("ID do treinador: "))
+            listar_atletas_por_treinador(id_treinador)
+        
+        elif opcao == '10':
             print("Saindo do sistema...")
             break
         
