@@ -4,39 +4,34 @@ atletas = {}
 next_treinador_id = 1
 next_atleta_id = 1
 
+# Funções para gerenciar treinadores
 def cadastrar_treinador(nome, idade, especializacao=None):
     global next_treinador_id
     treinador_id = next_treinador_id
-    treinadores[treinador_id] = {
-        'nome': nome,
-        'idade': idade,
-        'especializacao': especializacao
-    }
+    treinadores[treinador_id] = {'nome': nome, 'idade': idade, 'especializacao': especializacao}
     next_treinador_id += 1
     return treinador_id
 
 def listar_treinadores():
-    for treinador_id, treinador in treinadores.items():
-        print(f"ID: {treinador_id}, Treinador: {treinador['nome']}, Idade: {treinador['idade']}, Especialização: {treinador['especializacao']}")
+    for id_treinador, dados in treinadores.items():
+        print(f"ID: {id_treinador}, Nome: {dados['nome']}, Idade: {dados['idade']}, Especialização: {dados['especializacao']}")
 
-def buscar_treinador_por_id(treinador_id):
-    return treinadores.get(treinador_id, None)
-
-def atualizar_treinador(treinador_id, nome=None, idade=None, especializacao=None):
-    treinador = treinadores.get(treinador_id)
+def atualizar_treinador(id_treinador, nome=None, idade=None, especializacao=None):
+    treinador = treinadores.get(id_treinador)
     if treinador:
-        if nome:
+        if nome is not None:
             treinador['nome'] = nome
         if idade is not None:
             treinador['idade'] = idade
-        if especializacao:
+        if especializacao is not None:
             treinador['especializacao'] = especializacao
         return True
     return False
 
-def excluir_treinador(treinador_id):
-    return treinadores.pop(treinador_id, None) is not None
+def excluir_treinador(id_treinador):
+    return treinadores.pop(id_treinador, None) is not None
 
+# Funções para gerenciar atletas
 def cadastrar_atleta(nome, idade, modalidade, regime_treino, id_treinador):
     if id_treinador not in treinadores:
         print("ID do treinador não encontrado. Atleta não cadastrado.")
@@ -54,22 +49,19 @@ def cadastrar_atleta(nome, idade, modalidade, regime_treino, id_treinador):
     return atleta_id
 
 def listar_atletas():
-    for atleta_id, atleta in atletas.items():
-        print(f"ID: {atleta_id}, Atleta: {atleta['nome']}, Idade: {atleta['idade']}, Modalidade: {atleta['modalidade']}, Regime de Treino: {atleta['regime_treino']}, ID Treinador: {atleta['id_treinador']}")
+    for id_atleta, dados in atletas.items():
+        print(f"ID: {id_atleta}, Nome: {dados['nome']}, Idade: {dados['idade']}, Modalidade: {dados['modalidade']}, Regime de Treino: {dados['regime_treino']}, ID Treinador: {dados['id_treinador']}")
 
-def buscar_atleta_por_id(atleta_id):
-    return atletas.get(atleta_id, None)
-
-def atualizar_atleta(atleta_id, nome=None, idade=None, modalidade=None, regime_treino=None, id_treinador=None):
-    atleta = atletas.get(atleta_id)
+def atualizar_atleta(id_atleta, nome=None, idade=None, modalidade=None, regime_treino=None, id_treinador=None):
+    atleta = atletas.get(id_atleta)
     if atleta:
-        if nome:
+        if nome is not None:
             atleta['nome'] = nome
         if idade is not None:
             atleta['idade'] = idade
-        if modalidade:
+        if modalidade is not None:
             atleta['modalidade'] = modalidade
-        if regime_treino:
+        if regime_treino is not None:
             atleta['regime_treino'] = regime_treino
         if id_treinador is not None:
             if id_treinador not in treinadores:
@@ -79,8 +71,8 @@ def atualizar_atleta(atleta_id, nome=None, idade=None, modalidade=None, regime_t
         return True
     return False
 
-def excluir_atleta(atleta_id):
-    return atletas.pop(atleta_id, None) is not None
+def excluir_atleta(id_atleta):
+    return atletas.pop(id_atleta, None) is not None
 
 def listar_atletas_por_treinador(id_treinador):
     if id_treinador not in treinadores:
@@ -89,8 +81,9 @@ def listar_atletas_por_treinador(id_treinador):
     print(f"Atletas treinados por {treinadores[id_treinador]['nome']}:")
     for atleta in atletas.values():
         if atleta['id_treinador'] == id_treinador:
-            print(f"Atleta: {atleta['nome']}, Idade: {atleta['idade']}, Modalidade: {atleta['modalidade']}, Regime de Treino: {atleta['regime_treino']}")
+            print(f"Nome: {atleta['nome']}, Idade: {atleta['idade']}, Modalidade: {atleta['modalidade']}, Regime de Treino: {atleta['regime_treino']}")
 
+# Função para exibir o menu
 def exibir_menu():
     print("\n=== Menu ===")
     print("1. Cadastrar um treinador")
@@ -104,6 +97,7 @@ def exibir_menu():
     print("9. Listar atletas por treinador")
     print("10. Sair do sistema")
 
+# Função principal
 def main():
     global treinadores, atletas, next_treinador_id, next_atleta_id
     treinadores = {}
