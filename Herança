@@ -1,0 +1,25 @@
+class Pessoa:
+    def __init__(self, nome, idade):
+        self.nome = nome
+        self.idade = idade
+
+    def apresentar(self):
+        return f'ola, meu nome é {self.nome}, e eu tenho {self.idade} anos'
+
+class Estudante(Pessoa):
+    def __init__(self, nome, idade, curso):
+        super().__init__(nome, idade) 
+        self.curso = curso
+    
+    def apresentar(self):
+        return f'ola meu nome é {self.nome}, tenho {self.idade} anos e estudo {self.curso}'
+       
+
+
+
+pessoa1 = Pessoa ('ana', 30)
+estudante = Estudante(pessoa1.nome, pessoa1.idade, 'computação' )
+
+print(pessoa1.apresentar())
+print(estudante.apresentar())
+        
