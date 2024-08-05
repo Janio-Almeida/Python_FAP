@@ -1,0 +1,33 @@
+class Cliente:
+    def __init__(self, nome, email):
+        self.nome = nome
+        self.email = email
+
+    def relatorio(self):
+        raise NotImplementedError("Método 'relatorio' deve ser implementado pelas subclasses.")
+
+class ClientePF(Cliente):
+    def __init__(self, nome, email, cpf):
+        super().__init__(nome, email)
+        self.cpf = cpf
+
+    def relatorio(self):
+        return f"Nome: {self.nome}\nEmail: {self.email}\nDocumento (CPF): {self.cpf}"
+
+class ClientePJ(Cliente):
+    def __init__(self, nome, email, cnpj):
+        super().__init__(nome, email)
+        self.cnpj = cnpj
+
+    def relatorio(self):
+        return f"Nome: {self.nome}\nEmail: {self.email}\nDocumento (CNPJ): {self.cnpj}"
+
+# Criar objetos dos clientes
+cliente_pf = ClientePF(nome="João Silva", email="joao.silva@example.com", cpf="123.456.789-00")
+cliente_pj = ClientePJ(nome="Empresa XYZ", email="contato@empresa.com", cnpj="12.345.678/0001-00")
+
+# Criar e imprimir relatórios
+print("Relatório Cliente PF:")
+print(cliente_pf.relatorio())
+print("\nRelatório Cliente PJ:")
+print(cliente_pj.relatorio())
